@@ -1,5 +1,13 @@
 from django.shortcuts import render
-from .models import *
-from django import template
+
 
 # Create your views here.
+
+
+def home_view(request):
+    return render(request, 'main/base.html')
+
+def custom_view(request, resource):
+    return render(request, 'main/base.html')
+
+

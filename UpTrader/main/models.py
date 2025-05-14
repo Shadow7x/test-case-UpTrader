@@ -26,8 +26,8 @@ class MenuItem(models.Model):
         if self.url:
             return self.url
         try:
-            return reverse(self.named_url)
-        except NoReverseMatch:
+            return self.parent.get_url + self.named_url + '/'
+        except :
             return '#'
     
     def __str__(self):

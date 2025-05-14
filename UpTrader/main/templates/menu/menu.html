@@ -1,0 +1,25 @@
+<ul class="menu">
+{% for node in menu_structure %}
+    <li class="menu-item 
+        {% if node.children %}has-children{% endif %} 
+        {% if node.item.id in active_menu_items %}active{% endif %}"
+        data-item-id="{{ node.item.id }}">
+        
+        <div class="menu-item-header">
+            <a href="{{ node.item.get_url }}" class="menu-link">
+                {{ node.item.name }}
+            </a>
+            {% if node.children %}
+                <span class="arrow"> {% if node.item.order <= active_menu_items and node.item.menu_name == active_menu_type%} ▼ {%else%} ▶ {% endif %} </span>
+            {% endif %}
+        </div>
+
+        {% if node.children %}
+            <div class="submenu" 
+                style="display: {% if node.item.order <=  active_menu_items and node.item.menu_name == active_menu_type %}block{% else %}none{% endif %}">
+                {% include 'menu/menu.html' with menu_structure=node.children %}
+            </div>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
