@@ -23,9 +23,15 @@ def draw_menu(context):
 
     menu_structure = build_menu_tree(items)
     
-    active_menu = items.filter(Q(named_url = current_url)|Q(url = current_url))
+    for item in items:
+        if (item.get_url == current_url):
+            active_menu = item 
+            break
+    else:
+        raise Exception('Записи по текущему адресу не найдено')
     
-    active_menu_items = active_menu.first().order
-    active_menu_type = active_menu.first().menu_name
+    active_menu_items = active_menu.order
+    active_menu_type = active_menu.menu_name
+    
 
     return {'menu_structure': menu_structure, 'active_menu_items': active_menu_items, 'active_menu_type': active_menu_type, 'request': request}    
